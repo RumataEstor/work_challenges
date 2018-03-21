@@ -20,10 +20,22 @@ start() ->
                5 => [d, h],
                6 => [a, f]},
              [[1, 4, 6], [2, 5], [3]]) and
+        test(#{1 => [a, b],
+               2 => [c, d],
+               3 => [e, f],
+               4 => [g, h],
+               5 => [i, j],
+               6 => [i, h],
+               7 => [g, f],
+               8 => [e, d],
+               9 => [c, b]},
+             [[1, 2, 3, 4, 5, 6, 7, 8, 9]]) and
         true.
 
 test(Contacts, Expected) ->
-    fbcommon:test(Contacts, Expected, group(Contacts)).
+    Result = group(Contacts),
+    SortedResult = lists:sort([lists:sort(ContactList) || ContactList <- Result]),
+    fbcommon:test(Contacts, Expected, SortedResult).
 
 
 group(ContactsToEmails) ->
